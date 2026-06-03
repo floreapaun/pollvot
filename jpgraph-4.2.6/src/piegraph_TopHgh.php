@@ -44,7 +44,7 @@ $graph->SetShadow();
  
 // Set A title for the plot
 $graph->title->Set("");
-$graph->title->SetFont(FF_VERDANA,FS_BOLD,12);
+$graph->title->SetFont(FF_DV_SANSSERIF,FS_BOLD,12);
 $graph->title->SetColor('black');
  
 // Create pie plot
@@ -65,7 +65,7 @@ $p1->SetLabelPos(1);
 // or the percentage.
 $p1->SetLabelType(PIE_VALUE_PER);
 $p1->value->Show();
-$p1->value->SetFont(FF_ARIAL,FS_NORMAL,9);
+$p1->value->SetFont(FF_DV_SANSSERIF,FS_NORMAL,9);
 $p1->value->SetColor('darkgray');
  
 // Add and stroke
@@ -73,4 +73,3 @@ $graph->Add($p1);
 $graph->Stroke();
  
 ?>
-

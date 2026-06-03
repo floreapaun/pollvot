@@ -20,6 +20,26 @@ function Capitalize(str) {
   return newstr;
 }
 
+function buildGraphUrl(scriptName, params) {
+    var url = "/jpgraph-4.2.6/src/" + scriptName + "?";
+    var query = [];
+
+    Object.keys(params).forEach(function(key) {
+        query.push(encodeURIComponent(key) + "=" + encodeURIComponent(params[key]));
+    });
+
+    return url + query.join("&");
+}
+
+function showGraph(scriptName, params, title) {
+    $("#img_div").empty();
+    $("<img>", {
+        src: buildGraphUrl(scriptName, params),
+        alt: title
+    }).appendTo("#img_div");
+    $("#img_div").append("<h5>" + title + "</h5>");
+}
+
 $("#BttnGenAvgAge").click(function() {
     party = $("#party").val();
     $.ajax({
@@ -98,20 +118,13 @@ $("#BttnGenTopRegion").click(function() {
         dataType: "json",
         type: 'post',
         success: function(result) {
-                    var urlvars = "?nr=" + result.length + "&" + "region=" + region + "&";
+                    var params = { nr: result.length, region: region };
                     for(var i = 0; i < result.length; i++) {
-                        urlvars = urlvars + "votes_cnt" + i + "=" + result[i].votes_cnt;
-                        urlvars += "&";
+                        params["votes_cnt" + i] = result[i].votes_cnt;
+                        params["party_name" + i] = Capitalize(result[i].party);
                     }
-                    for(var i = 0; i < result.length; i++) {
-                        urlvars = urlvars + "party_name" + i + "=" + Capitalize(result[i].party);
-                        urlvars += "&";
-                    }
-                    urlvars = urlvars.substring(0, urlvars.length-1);
-                    console.log(urlvars);
-                    $("#img_div").empty();
-                    $("#img_div").append("<img src='http://localhost/pollvot/jpgraph-4.2.6/src/piegraph_TopReg.php" + urlvars +  "'>");
-                    $("#img_div").append("<h5>" + region + "</h5>");
+                    console.log(params);
+                    showGraph("piegraph_TopReg.php", params, region);
                  }
     });
     
@@ -128,20 +141,13 @@ $("#BttnGenTopYng").click(function() {
         dataType: "json",
         type: 'post',
         success: function(result) {
-                    var urlvars = "?nr=" + result.length + "&" + "img_title=" + img_title + "&";
+                    var params = { nr: result.length, img_title: img_title };
                     for(var i = 0; i < result.length; i++) {
-                        urlvars = urlvars + "votes_cnt" + i + "=" + result[i].votes_cnt;
-                        urlvars += "&";
+                        params["votes_cnt" + i] = result[i].votes_cnt;
+                        params["party_name" + i] = Capitalize(result[i].party);
                     }
-                    for(var i = 0; i < result.length; i++) {
-                        urlvars = urlvars + "party_name" + i + "=" + Capitalize(result[i].party);
-                        urlvars += "&";
-                    }
-                    urlvars = urlvars.substring(0, urlvars.length-1);
-                    console.log(urlvars);
-                    $("#img_div").empty();
-                    $("#img_div").append("<img src='http://localhost/pollvot/jpgraph-4.2.6/src/piegraph_TopYng.php" + urlvars +  "'>");
-                    $("#img_div").append("<h5>Sub 30 ani</h5>");
+                    console.log(params);
+                    showGraph("piegraph_TopYng.php", params, "Sub 30 ani");
                  }
     });
     
@@ -158,20 +164,13 @@ $("#BttnGenTopHgh").click(function() {
         dataType: "json",
         type: 'post',
         success: function(result) {
-                    var urlvars = "?nr=" + result.length + "&" + "img_title=" + img_title + "&";
+                    var params = { nr: result.length, img_title: img_title };
                     for(var i = 0; i < result.length; i++) {
-                        urlvars = urlvars + "votes_cnt" + i + "=" + result[i].votes_cnt;
-                        urlvars += "&";
+                        params["votes_cnt" + i] = result[i].votes_cnt;
+                        params["party_name" + i] = Capitalize(result[i].party);
                     }
-                    for(var i = 0; i < result.length; i++) {
-                        urlvars = urlvars + "party_name" + i + "=" + Capitalize(result[i].party);
-                        urlvars += "&";
-                    }
-                    urlvars = urlvars.substring(0, urlvars.length-1);
-                    console.log(urlvars);
-                    $("#img_div").empty();
-                    $("#img_div").append("<img src='http://localhost/pollvot/jpgraph-4.2.6/src/piegraph_TopYng.php" + urlvars +  "'>");
-                    $("#img_div").append("<h5>Studii superioare</h5>");
+                    console.log(params);
+                    showGraph("piegraph_TopHgh.php", params, "Studii superioare");
                  }
     });
     

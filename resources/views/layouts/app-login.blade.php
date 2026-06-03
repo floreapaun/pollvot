@@ -11,7 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script> 
-    <script src="{{ asset('js/simvot.js') }}" defer></script> 
+    <script src="{{ asset('js/simvot.js') }}?v=2" defer></script> 
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">

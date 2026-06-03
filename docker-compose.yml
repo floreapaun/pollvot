@@ -1,0 +1,33 @@
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - "8000:80"
+    env_file:
+      - .env.docker
+    depends_on:
+      - db
+    volumes:
+      - .:/var/www/html
+      - ./jpgraph-4.2.6:/var/www/html/public/jpgraph-4.2.6:ro
+      - vendor:/var/www/html/vendor
+      - app_storage:/var/www/html/storage
+
+  db:
+    image: mariadb:10.4
+    ports:
+      - "33066:3306"
+    environment:
+      MYSQL_DATABASE: votems
+      MYSQL_USER: pollvot
+      MYSQL_PASSWORD: pollvot
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./database/dump-pollvot-202212251211.sql:/docker-entrypoint-initdb.d/01-pollvot.sql:ro
+
+volumes:
+  app_storage:
+  db_data:
+  vendor:

@@ -1,6 +1,33 @@
 # PollVot
 
-How to run app
+How to run app with Docker
+
+1. Build and start the containers:
+
+   ```sh
+   docker compose up --build
+   ```
+
+   If your Docker installation uses the legacy Compose binary, run `docker-compose up --build` instead.
+
+2. Open http://localhost:8000
+3. The MySQL dump from `database/dump-pollvot-202212251211.sql` is imported automatically the first time the `db_data` volume is created.
+4. Administrator user credentials are email: administrator@pollvot.app and password: 12345678
+
+Useful commands:
+
+```sh
+docker compose down
+docker compose down -v
+docker compose exec app php artisan cache:clear
+docker compose exec db mysql -upollvot -ppollvot votems
+```
+
+Use `docker compose down -v` only when you want to delete the database volume and re-import the SQL dump on the next start.
+
+The Python prediction scripts are not installed in the container image.
+
+How to run app without Docker
 
 1. Import database dump located at /database directory.
 2. Create .env file with MySQL credentials
@@ -31,7 +58,5 @@ How to run app
 
 - Administrator dashboard showing last votes
 ![](https://i.ibb.co/HtQw1Yz/Screenshot-2022-12-25-at-12-06-42-Poll-Vot.png)
-
-
 
 

@@ -1,0 +1,14 @@
+.git
+.gitignore
+.env
+node_modules
+vendor
+storage/app/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+storage/logs/*
+docker-compose.yml
+README.md
+npm-debug.log
+yarn-error.log
